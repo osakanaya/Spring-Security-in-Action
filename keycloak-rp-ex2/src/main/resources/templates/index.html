@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body class="text-center">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">Apache Keycloak SSO demonstration</h1>
+
+		<div sec:authorize="!isAuthenticated()"> 
+	        <p class="lead">
+	        </p>
+	        <p class="lead">
+	            <a href="/oauth2/authorization/keycloak-dev" class="btn btn-lg btn-secondary">Login</a>
+	        </p>
+		</div> 
+
+		<div sec:authorize="isAuthenticated()"> 
+	        <p class="lead">
+	        </p>
+	        <p class="lead">
+	            <a href="#" id="logoutLink" class="btn btn-lg btn-secondary">Logout</a>
+	         	<form id="logoutForm" th:action="@{/logout}" method="POST">
+	         	</form>
+	        </p>
+		</div> 
+
+		<div sec:authorize="hasRole('USER')"> 
+	        <p class="lead">
+	        </p>
+	        <p class="lead">
+	            <a href="/products" class="btn btn-lg btn-secondary">Search products</a>
+	        </p>
+        </div>
+
+    </main>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+	$('#logoutLink').click(function(){
+		$('#logoutForm').submit();
+	});	
+});
+
+</script>
+
+
+</body>

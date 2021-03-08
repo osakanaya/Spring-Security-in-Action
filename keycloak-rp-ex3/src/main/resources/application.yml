@@ -1,0 +1,20 @@
+server:
+  port: 9090
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak-dev:
+            provider: keycloak
+            client-id: keycloak-rp-sample
+            client-secret: e4988cf6-9286-45d6-9f97-f5f53a94a614
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
